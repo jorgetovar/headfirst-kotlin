@@ -1,5 +1,7 @@
 package com.example.designpatterns.headfirst
 
+import java.math.BigDecimal
+
 
 class WeatherData(private var temp: Float = 0f,
                   private var humidity: Float = 0f,
@@ -23,6 +25,10 @@ class WeatherData(private var temp: Float = 0f,
 
     private fun measurementsChanged() {
         notifyObservers()
+    }
+
+    fun getTemperature(): Float {
+        return temp
     }
 
     fun setMeasurements(temp: Float, humidity: Float, pressure: Float) {

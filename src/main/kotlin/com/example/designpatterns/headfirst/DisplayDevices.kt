@@ -1,7 +1,7 @@
 package com.example.designpatterns.headfirst
 
 class CurrentConditionsDisplay(
-        weatherData: WeatherData,
+        private val weatherData: WeatherData,
         private var temp: Float = 0f,
         private var humidity: Float = 0f) : DisplayElement, Observer {
 
@@ -14,17 +14,22 @@ class CurrentConditionsDisplay(
     }
 
     override fun update(temp: Float, humidity: Float, pressure: Float) {
-        this.temp = temp
+        this.temp = weatherData.getTemperature()
         this.humidity = humidity
         display()
     }
 }
 
-class StatisticsDisplay(private var maxTemp: Float = 0.0f,
-                        private var tempSum: Float = 0.0f,
-                        private var numReadings: Int = 0,
-                        private var minTemp: Float = 200f) : DisplayElement, Observer {
+class StatisticsDisplay(
+        weatherData: WeatherData,
+        private var maxTemp: Float = 0.0f,
+        private var tempSum: Float = 0.0f,
+        private var numReadings: Int = 0,
+        private var minTemp: Float = 200f) : DisplayElement, Observer {
 
+    init {
+        weatherData.registerObserver(this)
+    }
 
     override fun display() {
         println("Avg/Max/Min temperature = ${(tempSum.div(numReadings))}/$maxTemp/$minTemp");
@@ -47,9 +52,14 @@ class StatisticsDisplay(private var maxTemp: Float = 0.0f,
 }
 
 
-class ForecastDisplay(private var currentPressure: Float = 0f,
-                      private var lastPressure: Float = 0f) : DisplayElement, Observer {
+class ForecastDisplay(
+        weatherData: WeatherData,
+        private var currentPressure: Float = 0f,
+        private var lastPressure: Float = 0f) : DisplayElement, Observer {
 
+    init {
+        weatherData.registerObserver(this)
+    }
 
     override fun display() {
         print("Forecast: ")
