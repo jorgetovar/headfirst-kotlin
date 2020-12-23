@@ -1,6 +1,4 @@
-package com.example.designpatterns.headfirst
-
-import java.math.BigDecimal
+package com.example.designpatterns.headfirst.observer
 
 
 class WeatherData(private var temp: Float = 0f,

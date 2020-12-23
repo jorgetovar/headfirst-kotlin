@@ -1,4 +1,4 @@
-package com.example.designpatterns.headfirst
+package com.example.designpatterns.headfirst.observer
 
 interface Subject {
     fun registerObserver(observer: Observer)

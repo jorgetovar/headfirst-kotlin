@@ -1,4 +1,4 @@
-package com.example.designpatterns.headfirst
+package com.example.designpatterns.headfirst.observer
 
 class CurrentConditionsDisplay(
         private val weatherData: WeatherData,
