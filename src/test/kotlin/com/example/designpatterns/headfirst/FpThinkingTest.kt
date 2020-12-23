@@ -1,6 +1,7 @@
 package com.example.designpatterns.headfirst
 
-import com.example.designpatterns.headfirst.fp.PerfectNumbersFinder
+import com.example.designpatterns.headfirst.fp.PerfectNumbersFinder.check
+import com.example.designpatterns.headfirst.fp.PerfectNumbersFinder.factors
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Test
@@ -13,25 +14,26 @@ class FpThinkingTest {
     fun perfectNumbersAllValid() {
         perfectNumbers.forEach {
 
-            assertThat(PerfectNumbersFinder.factors(it), `is`(true))
+            assertThat(check(factors(it)), `is`(true))
         }
     }
 
     @Test
     fun sixPerfectNumber() {
-        assertThat(PerfectNumbersFinder.factors(6), `is`(true))
+        assertThat(check(factors(6)), `is`(true))
     }
 
     @Test
     fun bigPerfectNumber() {
-        assertThat(PerfectNumbersFinder.factors(33550336), `is`(true))
+
+        assertThat(check(factors(33550336)), `is`(true))
     }
 
     @Test
     fun perfectNumbersTo100_000() {
 
-        for (i in 2..100000) if (perfectNumbers.contains(i)) assertThat(PerfectNumbersFinder.factors(i), `is`(true))
-        else assertThat(PerfectNumbersFinder.factors(i), `is`(false))
+        for (i in 2..100000) if (perfectNumbers.contains(i)) assertThat(check(factors(i)), `is`(true))
+        else assertThat(check(factors(i)), `is`(false))
     }
 
 
