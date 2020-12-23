@@ -12,4 +12,7 @@ fun main() {
     println("${extraMocha.description()} $ ${extraMocha.cost()}")
     println("${soy.description()} $ ${soy.cost()}")
 
+    val soyUltraBig = Soy(DarkRoast(Size.ULTRA_BIG))
+    println("${soyUltraBig.description()} $ ${soyUltraBig.cost()}")
+
 }
