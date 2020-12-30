@@ -1,6 +1,6 @@
 package com.example.designpatterns.headfirst.command
 
-class Directions() {
+class Directions {
     fun turnRight() {
         println("right")
     }
@@ -18,38 +18,38 @@ class Directions() {
     }
 }
 
-interface Command {
+interface Direction {
     fun execute()
 }
 
-class TurnRightCommand(private val directions: Directions) : Command {
+class TurnRightDirection(private val directions: Directions) : Direction {
     override fun execute() {
         directions.turnRight()
     }
 }
 
-class TurnLeftCommand(private val directions: Directions) : Command {
+class TurnLeftDirection(private val directions: Directions) : Direction {
     override fun execute() {
         directions.turnLeft()
     }
 }
 
-class UpCommand(private val directions: Directions) : Command {
+class UpDirection(private val directions: Directions) : Direction {
     override fun execute() {
         directions.up()
     }
 }
 
-class DownCommand(private val directions: Directions) : Command {
+class DownDirection(private val directions: Directions) : Direction {
     override fun execute() {
         directions.down()
     }
 }
 
-class Instructions(private val commands: List<Command>) {
+class Instructions(private val directions: List<Direction>) {
 
     fun run() {
-        commands.forEach {
+        directions.forEach {
             it.execute()
         }
     }
