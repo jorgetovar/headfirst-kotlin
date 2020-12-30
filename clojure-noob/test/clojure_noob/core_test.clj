@@ -9,12 +9,12 @@
 
 (deftest factors-six
          (testing "6 factors"
-                  (is (= '(1 2 3 6) (factors 6))))
+                  (is (= (sort '(1 2 3 6)) (sort (factors 6)))))
          )
 
 (deftest factors-28
          (testing "28 factors"
-                  (is (= '(1, 2, 4, 7, 14, 28) (factors 28)))
+                  (is (= (sort '(1, 2, 4, 7, 14, 28)) (sort (factors 28))))
                   )
          )
 
@@ -29,4 +29,8 @@
                   (is (every? true? (map perfect-number? '(6, 28, 496, 8128, 33550336))))
                   )
          )
-;
+(deftest one-hundred-thousands
+         (testing "improve performance"
+                  (is (= (- 100000 6) (count (filter false? (map perfect-number? (range 2 100000))))))
+                  )
+         )

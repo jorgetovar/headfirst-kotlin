@@ -5,7 +5,7 @@
       (zero? (rem number r)))
 
 (defn factors [number]
-      (filter #(factor? number %) (range 1 (inc number)))
+      (flatten (map #(list % (/ number %)) (filter #(factor? number %) (range 1 (Math/sqrt number)))))
       )
 
 (defn sum-factors [number]
