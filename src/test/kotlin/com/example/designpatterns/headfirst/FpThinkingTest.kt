@@ -4,6 +4,7 @@ import com.example.designpatterns.headfirst.fp.PerfectNumbersFinder.check
 import com.example.designpatterns.headfirst.fp.PerfectNumbersFinder.factors
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.jupiter.api.Test
 
 class FpThinkingTest {
@@ -27,6 +28,12 @@ class FpThinkingTest {
     fun bigPerfectNumber() {
 
         assertThat(check(factors(33550336)), `is`(true))
+    }
+
+    @Test
+    fun factorsOf28() {
+
+        assertThat(factors(28), `is`(equalTo(listOf(28, 1, 2, 14, 4, 7))))
     }
 
     @Test
