@@ -5,7 +5,8 @@
       (zero? (rem number r)))
 
 (defn factors [number]
-      (for [n (range 1 (inc number)) :when (factor? number n)] n))
+      (filter #(factor? number %) (range 1 (inc number)))
+      )
 
 (defn sum-factors [number]
       (reduce + (factors number)))

@@ -29,4 +29,4 @@
                   (is (every? true? (map perfect-number? '(6, 28, 496, 8128, 33550336))))
                   )
          )
-;(range 2 100000)
+;
