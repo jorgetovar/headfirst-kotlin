@@ -1,6 +1,7 @@
 (ns clojure-noob.core-test
     (:require [clojure.test :refer :all]
-              [clojure-noob.core :refer :all]))
+              [clojure-noob.factors :refer :all]
+              [clojure-noob.decorator :refer :all]))
 
 (deftest perfect-number?-six
          (testing "6 is a perfect number"
@@ -33,4 +34,17 @@
          (testing "improve performance"
                   (is (= (- 100000 6) (count (filter false? (map perfect-number? (range 2 100000))))))
                   )
+         )
+
+
+(deftest beverage-test
+         (is (= "BIG" (:size (beverage 0.20 "dark"))))
+         (is (= 0.20 (:cost (beverage 0.20 "dark"))))
+         (is (= "dark" (:description (beverage 0.20 "dark"))))
+         )
+
+(deftest dark-roast-coffee-test
+         (is (= "BIG" (:size (dark-roast-coffee))))
+         (is (= 0.9 (:cost (dark-roast-coffee))))
+         (is (= "Dark Roast Coffee" (:description (dark-roast-coffee))))
          )
