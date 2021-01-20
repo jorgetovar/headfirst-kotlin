@@ -9,6 +9,16 @@ abstract class Beverage(val size: Size = Size.BIG) {
     abstract fun description(): String
 }
 
+class BeverageFn(val cost: Double, val description: String, val size: Size = Size.BIG) {
+
+    fun decorate(fn: (a: BeverageFn) -> BeverageFn): BeverageFn {
+        return fn.invoke(this)
+    }
+
+}
+
+fun makeDarkRoast(size: Size = Size.TALL) = BeverageFn(.99, "Dark Roast Coffee", size)
+
 class DarkRoast(size: Size = Size.TALL) : Beverage(size) {
     override fun cost(): Double = .99
     override fun description() = "Dark Roast Coffee"
@@ -48,3 +58,14 @@ class Soy(beverage: Beverage) : CondimentDecorator(beverage) {
 }
 
 
+fun addMocha(x: BeverageFn): BeverageFn = BeverageFn(x.cost + .20, x.description + ", Mocha")
+
+fun addSoy(x: BeverageFn): BeverageFn {
+    val description = x.description + ", Soy"
+    return when (x.size) {
+        Size.TALL -> BeverageFn(x.cost + .10, description)
+        Size.BIG -> BeverageFn(x.cost + .15, description)
+        Size.ULTRA_BIG -> BeverageFn(x.cost + .20, description)
+    }
+
+}

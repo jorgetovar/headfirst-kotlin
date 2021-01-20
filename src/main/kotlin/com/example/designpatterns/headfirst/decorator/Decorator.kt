@@ -1,6 +1,7 @@
 package com.example.designpatterns.headfirst.decorator
 
 fun main() {
+    println("**Imperative**")
     val darkRoast: Beverage = DarkRoast()
     println("${darkRoast.description()} $ ${darkRoast.cost()}")
 
@@ -14,5 +15,17 @@ fun main() {
 
     val soyUltraBig = Soy(DarkRoast(Size.ULTRA_BIG))
     println("${soyUltraBig.description()} $ ${soyUltraBig.cost()}")
+
+    println("**Functional**")
+    val darkRoastFn = makeDarkRoast()
+    println("${darkRoastFn.description} $ ${darkRoastFn.cost}")
+    val mochaFn = darkRoastFn.decorate { addMocha(it) }
+    println("${mochaFn.description} $ ${mochaFn.cost}")
+    val extraMochaFn = darkRoastFn.decorate { addMocha(addMocha(it)) }
+    println("${extraMochaFn.description} $ ${extraMochaFn.cost}")
+    val soyFn = darkRoastFn.decorate { addSoy(it) }
+    val soyUltraBigFn = makeDarkRoast().decorate { addSoy(it) }
+    println("${soyFn.description} $ ${soyFn.cost}")
+    println("${soyUltraBigFn.description} $ ${soyUltraBigFn.cost}")
 
 }
