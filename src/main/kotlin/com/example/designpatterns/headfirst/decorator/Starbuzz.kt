@@ -11,14 +11,12 @@ abstract class Beverage(val size: Size = Size.BIG) {
     abstract fun description(): String
 }
 
-@optics
 data class BeverageFn(val cost: Double, val description: String, val size: Size = Size.BIG) {
 
     fun decorate(fn: (a: BeverageFn) -> BeverageFn): BeverageFn {
         return fn.invoke(this)
     }
 
-    companion object {}
 }
 
 
