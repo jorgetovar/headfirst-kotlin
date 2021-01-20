@@ -1,5 +1,7 @@
 package com.example.designpatterns.headfirst.decorator
 
+import arrow.optics.*
+
 enum class Size {
     TALL, BIG, ULTRA_BIG
 }
@@ -9,15 +11,16 @@ abstract class Beverage(val size: Size = Size.BIG) {
     abstract fun description(): String
 }
 
-class BeverageFn(val cost: Double, val description: String, val size: Size = Size.BIG) {
+@optics
+data class BeverageFn(val cost: Double, val description: String, val size: Size = Size.BIG) {
 
     fun decorate(fn: (a: BeverageFn) -> BeverageFn): BeverageFn {
         return fn.invoke(this)
     }
 
+    companion object {}
 }
 
-fun makeDarkRoast(size: Size = Size.TALL) = BeverageFn(.99, "Dark Roast Coffee", size)
 
 class DarkRoast(size: Size = Size.TALL) : Beverage(size) {
     override fun cost(): Double = .99
@@ -58,14 +61,30 @@ class Soy(beverage: Beverage) : CondimentDecorator(beverage) {
 }
 
 
-fun addMocha(x: BeverageFn): BeverageFn = BeverageFn(x.cost + .20, x.description + ", Mocha")
+val beverageCost: Lens<BeverageFn, Double> = Lens(
+        get = { b -> b.cost },
+        set = { b, value -> b.copy(cost = value) }
+)
+
+val beverageDesc: Lens<BeverageFn, String> = Lens(
+        get = { b -> b.description },
+        set = { b, value -> b.copy(description = value) }
+)
+
+
+fun makeDarkRoast(size: Size = Size.TALL) = BeverageFn(.99, "Dark Roast Coffee", size)
+
+fun addMocha(x: BeverageFn): BeverageFn {
+    val mocha = beverageDesc.modify(x) { "$it, Mocha" }
+    return beverageCost.modify(mocha) { it + .20 }
+}
 
 fun addSoy(x: BeverageFn): BeverageFn {
-    val description = x.description + ", Soy"
+    val soy = beverageDesc.modify(x) { "$it, Soy" }
     return when (x.size) {
-        Size.TALL -> BeverageFn(x.cost + .10, description)
-        Size.BIG -> BeverageFn(x.cost + .15, description)
-        Size.ULTRA_BIG -> BeverageFn(x.cost + .20, description)
+        Size.TALL -> beverageCost.modify(soy) { it + .10 }
+        Size.BIG -> beverageCost.modify(soy) { it + .50 }
+        Size.ULTRA_BIG -> beverageCost.modify(soy) { it + .20 }
     }
 
 }

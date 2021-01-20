@@ -24,7 +24,7 @@ fun main() {
     val extraMochaFn = darkRoastFn.decorate { addMocha(addMocha(it)) }
     println("${extraMochaFn.description} $ ${extraMochaFn.cost}")
     val soyFn = darkRoastFn.decorate { addSoy(it) }
-    val soyUltraBigFn = makeDarkRoast().decorate { addSoy(it) }
+    val soyUltraBigFn = makeDarkRoast(Size.ULTRA_BIG).decorate { addSoy(it) }
     println("${soyFn.description} $ ${soyFn.cost}")
     println("${soyUltraBigFn.description} $ ${soyUltraBigFn.cost}")
 
