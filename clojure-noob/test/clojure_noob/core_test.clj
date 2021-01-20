@@ -38,13 +38,38 @@
 
 
 (deftest beverage-test
-         (is (= "BIG" (:size (beverage 0.20 "dark"))))
+         (is (= big (:size (beverage 0.20 "dark"))))
          (is (= 0.20 (:cost (beverage 0.20 "dark"))))
          (is (= "dark" (:description (beverage 0.20 "dark"))))
          )
 
 (deftest dark-roast-coffee-test
-         (is (= "BIG" (:size (dark-roast-coffee))))
+         (is (= big (:size (dark-roast-coffee))))
          (is (= 0.9 (:cost (dark-roast-coffee))))
-         (is (= "Dark Roast Coffee" (:description (dark-roast-coffee))))
+         (is (= dark-roast-coffee-desc (:description (dark-roast-coffee))))
+         )
+
+
+(deftest dark-roast-coffee-mocha-test
+         (is (= big (:size (dark-roast-coffee))))
+         (is (= 1.1 (:cost (add-mocha (dark-roast-coffee)))))
+         (is (= "Dark Roast Coffee, Mocha" (:description (add-mocha (dark-roast-coffee)))))
+         )
+
+(deftest coffee-soy-test
+
+         (let [coffee  (->
+                         (dark-roast-coffee)
+                         (add-soy)
+                         (add-soy)
+                         (add-mocha)
+                         )]
+
+              (is (= ultra-big (:size (dark-roast-coffee ultra-big))))
+              (is (= "Dark Roast Coffee, Soy, Soy, Mocha"
+                     (:description coffee)))
+
+              (is (= 1.4 (:cost coffee)))
+              )
+
          )
