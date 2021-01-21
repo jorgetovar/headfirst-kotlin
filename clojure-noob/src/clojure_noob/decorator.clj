@@ -1,14 +1,19 @@
-(ns clojure-noob.decorator)
+(ns clojure-noob.decorator
+    (:require [clojure.spec.alpha :as s])
+    )
 
-(def big :big)
-(def tall :tall)
-(def ultra-big :ultra-big)
+
+(def sizes #{:big :tall :ultra-big})
 
 (defn beverage
       ([cost description]
-       (beverage cost description big))
+       (beverage cost description :big))
       ([cost description size]
-       {:cost cost :description description :size size})
+       (if (s/valid? sizes size)
+           {:cost cost :description description :size size}
+           {:cost cost :description description :size :big}
+           )
+       )
       )
 
 (def dark-roast-coffee-desc "Dark Roast Coffee")
@@ -31,7 +36,7 @@
                  :tall (update m :cost + 0.10)
                  :big (update m :cost + 0.15)
                  :ultra-big (update m :cost + 0.20)
-                  m
+                 m
                  ))
       )
 
