@@ -2,7 +2,6 @@
     (:require [clojure.spec.alpha :as s])
     )
 
-
 (def sizes #{:big :tall :ultra-big})
 
 (defn beverage
