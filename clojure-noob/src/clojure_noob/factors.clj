@@ -15,3 +15,4 @@
 (defn perfect-number? [number]
       (= number (- (sum-factors number) number))
       )
+

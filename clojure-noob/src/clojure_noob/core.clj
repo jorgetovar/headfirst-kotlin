@@ -8,13 +8,7 @@
                   (recur (- x 2))))
       )
 
-
 (defn -main
       "I don't do a whole lot ... yet."
       [& args]
-      (println "Enter something> ")
-      (let [x (read-line)]
-           (println (str "You typed " x))
-           )
-      (my-loop)
       )
